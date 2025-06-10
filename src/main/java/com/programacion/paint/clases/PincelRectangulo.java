@@ -5,10 +5,14 @@ import javafx.scene.canvas.GraphicsContext;
 public class PincelRectangulo implements Pincel{
     @Override
     public void dibujar(GraphicsContext g, Punto p) {
-        throw new UnsupportedOperationException("no programado");
+        this.dibujar(g, new Punto(10 , 10));
     }
 
     PincelRectangulo() {
-        throw new UnsupportedOperationException("no programado");
+    }
+
+    @Override
+    public String toString() {
+        return "Pincel rectangular";
     }
 }

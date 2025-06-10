@@ -1,14 +1,32 @@
 package com.programacion.paint.clases;
 
+import javafx.scene.canvas.GraphicsContext;
+
 public class PincelContinuo extends PincelBasico implements Reseteable{
     private Punto puntoPrevio;
 
     PincelContinuo(){
-        throw new UnsupportedOperationException("no programado");
+        this.puntoPrevio = null;
     }
 
     @Override
     public void resetear() {
-        throw new UnsupportedOperationException("no programado");
+        this.puntoPrevio = null;
+    }
+
+    @Override
+    public void dibujar(GraphicsContext g, Punto p) {
+        if (this.puntoPrevio == null){
+            this.dibujar(g, p);
+            this.puntoPrevio = p;
+        }else{
+            g.strokeLine(this.puntoPrevio.x(), this.puntoPrevio.y(), p.x(), p.y());
+            this.puntoPrevio = p;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Pincel continuo";
     }
 }

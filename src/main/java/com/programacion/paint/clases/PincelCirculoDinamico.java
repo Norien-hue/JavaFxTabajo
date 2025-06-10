@@ -4,15 +4,23 @@ public class PincelCirculoDinamico implements PincelCirculo{
     private int radio;
 
     PincelCirculoDinamico(int radio){
-        throw new UnsupportedOperationException("no programado");
+        if (radio<0){
+            throw new IllegalArgumentException("El radio debe de ser positivo");
+        }else{
+            this.radio = radio;
+        }
     }
 
     @Override
     public int getRadio() {
-        throw new UnsupportedOperationException("no programado");
+        return this.radio;
     }
 
     public void setRadio(int radio){
-        throw new UnsupportedOperationException("no programado");
+        if (radio<0){
+            throw new IllegalArgumentException("El radio debe de ser positivo");
+        }else{
+            this.radio = radio;
+        }
     }
 }

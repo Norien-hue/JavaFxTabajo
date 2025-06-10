@@ -1,14 +1,18 @@
 package com.programacion.paint.clases;
 
 public class PincelBasico implements PincelCirculo{
-    public static final int RADIO;
+    public static final int RADIO = 1;
 
     PincelBasico(){
-        throw new UnsupportedOperationException("no programado");
     }
 
     @Override
     public int getRadio() {
-        throw new UnsupportedOperationException("no programado");
+        return RADIO;
+    }
+
+    @Override
+    public String toString() {
+        return "Pincel básico";
     }
 }
