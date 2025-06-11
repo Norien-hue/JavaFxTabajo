@@ -8,8 +8,8 @@ public enum TipoPincel {
     PINCEL_GORDO(new PincelGordo()),
     PINCEL_GROSOR_VARIABLE(new PincelGrosorVariable()),
     PINCEL_CONTINUO(new PincelContinuo()),
-    PINCEL_RECTANGULO(new PincelRectangulo),
-    PINCEL_ESTRELLA(new PincelEstrella);
+    PINCEL_RECTANGULO(new PincelRectangulo()),
+    PINCEL_ESTRELLA(new PincelEstrella());
 
     private Pincel pincel;
 
