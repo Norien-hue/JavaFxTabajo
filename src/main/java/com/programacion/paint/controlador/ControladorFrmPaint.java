@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Button;
@@ -61,29 +62,27 @@ public class ControladorFrmPaint implements Initializable {
     private void inicializarIconos() {
         try {
 
-            Image iconoNuevo = new Image(getClass().getResourceAsStream("/icons/nuevo.png"));
-            Image iconoAbrir = new Image(getClass().getResourceAsStream("/icons/abrir.png"));
-            Image iconoGuardar = new Image(getClass().getResourceAsStream("/icons/guardar.png"));
-            Image iconoPincel = new Image(getClass().getResourceAsStream("/icons/pincel.png"));
+            Image icN = new Image(getClass().getResourceAsStream("/icons/nuevo.png"));
+            Image icA = new Image(getClass().getResourceAsStream("/icons/abrir.png"));
+            Image icG = new Image(getClass().getResourceAsStream("/icons/guardar.png"));
+            Image icP = new Image(getClass().getResourceAsStream("/icons/pincel.png"));
 
 
-            ImageView imgNuevo = new ImageView(iconoNuevo);
-            imgNuevo.setFitHeight(16);
-            imgNuevo.setFitWidth(16);
-            btnNuevo.setGraphic(imgNuevo);
+            ImageView imgN = new ImageView(icN);
+            imgN.setFitHeight(16);
+            imgN.setFitWidth(16);
+            btnNuevo.setGraphic(imgN);
 
-            ImageView imgAbrir = new ImageView(iconoAbrir);
-            imgAbrir.setFitHeight(16);
-            imgAbrir.setFitWidth(16);
-            btnAbrir.setGraphic(imgAbrir);
+            ImageView imgA = new ImageView(icA);
+            imgA.setFitHeight(16);
+            imgA.setFitWidth(16);
+            btnAbrir.setGraphic(imgA);
 
-            ImageView imgGuardar = new ImageView(iconoGuardar);
-            imgGuardar.setFitHeight(16);
-            imgGuardar.setFitWidth(16);
-            btnGuardar.setGraphic(imgGuardar);
-
-            // Imagen para el ImageView de pinceles
-            imgPinceles.setImage(iconoPincel);
+            ImageView imgG = new ImageView(icG);
+            imgG.setFitHeight(16);
+            imgG.setFitWidth(16);
+            btnGuardar.setGraphic(imgG);
+            imgPinceles.setImage(icP);
 
         } catch (Exception e) {
             System.out.println("No se pudieron cargar los iconos: " + e.getMessage());
@@ -91,10 +90,8 @@ public class ControladorFrmPaint implements Initializable {
     }
 
     private void inicializarComboBox() {
-        // Obtener todos los pinceles de la enumeración TipoPincel
         cmbPinceles.getItems().addAll(TipoPincel.getPinceles());
 
-        // Seleccionar el primer pincel por defecto
         if (!cmbPinceles.getItems().isEmpty()) {
             cmbPinceles.getSelectionModel().selectFirst();
         }
@@ -102,11 +99,11 @@ public class ControladorFrmPaint implements Initializable {
 
     @FXML
     private void empezarDibujar(MouseEvent event) {
-        Pincel pincelSeleccionado = cmbPinceles.getSelectionModel().getSelectedItem();
+        Pincel seleccionPincel = cmbPinceles.getSelectionModel().getSelectedItem();
 
-        if (pincelSeleccionado != null) {
-            if (pincelSeleccionado instanceof Reseteable) {
-                ((Reseteable) pincelSeleccionado).resetear();
+        if (seleccionPincel != null) {
+            if (seleccionPincel instanceof Reseteable) {
+                ((Reseteable) seleccionPincel).resetear();
             }
 
             dibujarPunto(event);
@@ -115,61 +112,62 @@ public class ControladorFrmPaint implements Initializable {
 
     @FXML
     private void dibujarPunto(MouseEvent event) {
-        Pincel pincelSeleccionado = cmbPinceles.getSelectionModel().getSelectedItem();
+        Pincel seleccionPincel = cmbPinceles.getSelectionModel().getSelectedItem();
 
-        if (pincelSeleccionado != null) {
+        if (seleccionPincel != null) {
             GraphicsContext gc = cnvLienzo.getGraphicsContext2D();
 
-            Punto punto = new Punto(event.getX(), event.getY());
+            Punto pnt = new Punto(event.getX(), event.getY());
 
-            pincelSeleccionado.dibujar(gc, punto);
+            seleccionPincel.dibujar(gc, pnt);
         }
     }
 
     @FXML
     private void nuevaImagen(ActionEvent event) {
-        GraphicsContext gc = cnvLienzo.getGraphicsContext2D();
+        GraphicsContext graphics = cnvLienzo.getGraphicsContext2D();
 
-        javafx.scene.paint.Paint colorActual = gc.getFill();
+        javafx.scene.paint.Paint colorRelleno = graphics.getFill();
 
-        gc.setFill(Color.WHITE);
-        gc.fillRect(0, 0, cnvLienzo.getWidth(), cnvLienzo.getHeight());
+        graphics.setFill(Color.WHITE);
+        graphics.fillRect(0, 0, cnvLienzo.getWidth(), cnvLienzo.getHeight());
 
-        gc.setFill(colorActual);
+        graphics.setFill(colorRelleno);
     }
 
     @FXML
     private void cambiarColor(ActionEvent event) {
-        Color colorSeleccionado = cpkColor.getValue();
+        Color seleccionColor = cpkColor.getValue();
 
-        if (colorSeleccionado != null) {
-            GraphicsContext gc = cnvLienzo.getGraphicsContext2D();
-            gc.setFill(colorSeleccionado);
-            gc.setStroke(colorSeleccionado);
+        if (seleccionColor != null) {
+            GraphicsContext graphics = cnvLienzo.getGraphicsContext2D();
+            graphics.setFill(seleccionColor);
         }
     }
 
     @FXML
     private void abrirImagen(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Abrir Imagen");
+        FileChooser seleccionador = new FileChooser();
+        seleccionador.setTitle("Abrir Img");
 
-        FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter(
-                "Archivos de Imagen", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp");
-        fileChooser.getExtensionFilters().add(imageFilter);
+        File file = seleccionador.showOpenDialog(panel.getScene().getWindow());
 
-        Stage stage = (Stage) cnvLienzo.getScene().getWindow();
-        File archivoSeleccionado = fileChooser.showOpenDialog(stage);
-
-        if (archivoSeleccionado != null) {
+        if (file != null) {
             try {
-                Image imagen = new Image(archivoSeleccionado.toURI().toString());
+                Image image = new Image(file.toURI().toString());
 
                 GraphicsContext gc = cnvLienzo.getGraphicsContext2D();
-                gc.drawImage(imagen, 0, 0);
+
+                gc.clearRect(0, 0, cnvLienzo.getWidth(), cnvLienzo.getHeight());
+
+                gc.drawImage(image, 0, 0);
 
             } catch (Exception e) {
-                System.err.println("Error al cargar la imagen: " + e.getMessage());
+                System.out.println("Error al cargar la imagen: " + e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("El archivo seleccionado no es una imagen válida.");
+                alert.show();
             }
         }
     }
@@ -177,36 +175,33 @@ public class ControladorFrmPaint implements Initializable {
     @FXML
     private void guardarImagen(ActionEvent event) {
         try {
-            javafx.geometry.Bounds boundsInLocal = cnvLienzo.getBoundsInLocal();
-            javafx.geometry.Bounds boundsInScreen = cnvLienzo.localToScreen(boundsInLocal);
+            javafx.geometry.Bounds dimCanvas = cnvLienzo.getBoundsInLocal();
+            javafx.geometry.Bounds coordenadas = cnvLienzo.localToScreen(dimCanvas);
 
             Robot robot = new Robot();
             BufferedImage screenshot = robot.createScreenCapture(
                     new Rectangle(
-                            (int) boundsInScreen.getMinX(),
-                            (int) boundsInScreen.getMinY(),
-                            (int) boundsInScreen.getWidth(),
-                            (int) boundsInScreen.getHeight()
+                            (int) coordenadas.getMinX(),
+                            (int) coordenadas.getMinY(),
+                            (int) coordenadas.getWidth(),
+                            (int) coordenadas.getHeight()
                     )
             );
 
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Guardar Imagen");
-
-            FileChooser.ExtensionFilter pngFilter = new FileChooser.ExtensionFilter(
-                    "Archivos PNG", "*.png");
-            fileChooser.getExtensionFilters().add(pngFilter);
-            fileChooser.setInitialFileName("dibujo.png");
+            FileChooser seleccionador = new FileChooser();
+            seleccionador.setTitle("Guardar Imagen");
 
             Stage stage = (Stage) cnvLienzo.getScene().getWindow();
-            File archivoDestino = fileChooser.showSaveDialog(stage);
+            File Destino = seleccionador.showSaveDialog(stage);
 
-            if (archivoDestino != null) {
-                ImageIO.write(screenshot, "png", archivoDestino);
-                System.out.println("Imagen guardada: " + archivoDestino.getAbsolutePath());
+            if (Destino != null) {
+                ImageIO.write(screenshot, "png", Destino);
+                System.out.println("Imagen guardada: " + Destino.getAbsolutePath());
             }
 
-        } catch (AWTException | IOException e) {
+        } catch (AWTException e) {
+            System.err.println("Error al guardar la imagen: " + e.getMessage());
+        } catch (IOException e) {
             System.err.println("Error al guardar la imagen: " + e.getMessage());
         }
     }
