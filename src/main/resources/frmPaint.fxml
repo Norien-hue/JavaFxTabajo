@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.paint.Color?>
+
+<BorderPane fx:id="borderpanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.programacion.paint.controlador.ControladorFrmPaint">
+    <top>
+        <HBox BorderPane.alignment="CENTER">
+            <children>
+                <ToolBar>
+                    <items>
+                        <Button fx:id="btnNuevo" mnemonicParsing="false" onAction="#nuevaImagen" text="Nuevo" />
+                        <Button fx:id="btnAbrir" mnemonicParsing="false" onAction="#abrirImagen" text="Abrir" />
+                        <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#guardarImagen" text="Guardar" />
+                    </items>
+                </ToolBar>
+                <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                    <children>
+                        <ImageView fx:id="imgPinceles" fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                            <HBox.margin>
+                                <Insets right="10.0" />
+                            </HBox.margin>
+                        </ImageView>
+                        <ComboBox fx:id="cmbPinceles" prefWidth="150.0">
+                            <HBox.margin>
+                                <Insets right="10.0" />
+                            </HBox.margin>
+                        </ComboBox>
+                        <ColorPicker fx:id="cpkColor" onAction="#cambiarColor">
+                            <value>
+                                <Color />
+                            </value>
+                        </ColorPicker>
+                    </children>
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                </HBox>
+            </children>
+        </HBox>
+    </top>
+    <center>
+        <Canvas fx:id="cnvLienzo" height="560.0" onMouseDragged="#dibujarPunto" onMousePressed="#empezarDibujar" width="800.0" BorderPane.alignment="CENTER" />
+    </center>
+</BorderPane>
