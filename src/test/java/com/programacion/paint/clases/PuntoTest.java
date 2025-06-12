@@ -1,9 +1,8 @@
 package com.programacion.paint.clases;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import static org.junit.Assert.*;
-
 public class PuntoTest {
     @Test(expected = IllegalArgumentException.class)
     public void test1(){
