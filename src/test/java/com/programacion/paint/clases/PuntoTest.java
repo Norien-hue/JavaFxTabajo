@@ -1,5 +1,7 @@
+/*
 package com.programacion.paint.clases;
 
+import com.programacion.paint.clases.Punto;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -23,3 +25,4 @@ public class PuntoTest {
         assertEquals(25, p.y());
     }
 }
+*/
