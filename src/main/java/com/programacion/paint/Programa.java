@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class Programa extends Application {
 
     public static void main(String[] args) {
@@ -12,12 +14,17 @@ public class Programa extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/java/resources/frmPaint.fxml"));
-        Scene scene = new Scene(loader.load());
+    public void start(Stage vtn){
+        try{
+            FXMLLoader cargador = new FXMLLoader();
+            Scene scene =new Scene(
+                    cargador.load(ClassLoader.getSystemResourceAsStream("frmPaint.fxml"))
+            );
+            vtn.setScene(scene);
+            vtn.show();
+        }catch (IOException error){
+            System.out.println(error.getMessage());
+        }
 
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
-        primaryStage.show();
     }
 }

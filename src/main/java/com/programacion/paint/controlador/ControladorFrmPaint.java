@@ -62,10 +62,10 @@ public class ControladorFrmPaint implements Initializable {
     private void inicializarIconos() {
         try {
 
-            Image icN = new Image(getClass().getResourceAsStream("icons/nuevo.png"));
-            Image icA = new Image(getClass().getResourceAsStream("icons/abrir.png"));
-            Image icG = new Image(getClass().getResourceAsStream("icons/guardar.png"));
-            Image icP = new Image(getClass().getResourceAsStream("icons/pincel.png"));
+            Image icN = new Image(getClass().getResourceAsStream("/Action-file-new-icon.png"));
+            Image icA = new Image(getClass().getResourceAsStream("/open-file-icon.png"));
+            Image icG = new Image(getClass().getResourceAsStream("/Save-icon.png"));
+            Image icP = new Image(getClass().getResourceAsStream("/Pencil-icon.png"));
 
 
             ImageView imgN = new ImageView(icN);
