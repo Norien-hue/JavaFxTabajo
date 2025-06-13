@@ -22,11 +22,9 @@ public class PincelSpray extends PincelCirculoDinamico{
     public void dibujar(GraphicsContext g, Punto p) {
         IntStream.range(0, densidad)
                 .forEach(i -> {
-                    // Generar números aleatorios
-                    int r = new Random().nextInt(this.getRadio()) + 1; // [1, radio]
-                    double gr = new Random().nextDouble() * 360; // [0, 360)
+                    int r = new Random().nextInt(this.getRadio()) + 1;
+                    double gr = new Random().nextDouble() * 360;
 
-                    // Convertir grados a radianes
                     double a = Math.toRadians(gr);
                     g.fillOval(p.x() + r * cos(a), p.y() + r * sin(a), this.getRadio()*2, this.getRadio()*2);
                 });

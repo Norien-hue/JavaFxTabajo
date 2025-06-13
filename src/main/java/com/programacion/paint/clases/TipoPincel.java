@@ -31,7 +31,9 @@ public enum TipoPincel {
                 TipoPincel.PINCEL_GROSOR_VARIABLE.getPincel(),
                 TipoPincel.PINCEL_CONTINUO.getPincel(),
                 TipoPincel.PINCEL_RECTANGULO.getPincel(),
-                TipoPincel.PINCEL_ESTRELLA.getPincel()
+                TipoPincel.PINCEL_ESTRELLA.getPincel(),
+                TipoPincel.PINCEL_SPRAY.getPincel(),
+                TipoPincel.PINCEL_CONSTELACION.getPincel()
         );
     }
 }

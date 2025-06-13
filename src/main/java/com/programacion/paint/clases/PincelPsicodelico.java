@@ -24,7 +24,7 @@ public class PincelPsicodelico extends PincelSorpresa{
 
         javafx.scene.paint.Paint colorOriginal = g.getFill();
 
-        g.setFill(this.getColorAleatorio());
+       //g.setFill(this.getColorAleatorio());
 
         super.dibujar(g, p);
     }
