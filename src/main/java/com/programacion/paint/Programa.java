@@ -14,31 +14,17 @@ public class Programa extends Application {
     }
 
     @Override
-    public void start(Stage ventana){
-        FXMLLoader loader = new FXMLLoader();
+    public void start(Stage vtn){
         try{
-            Scene scene = new Scene(loader.load(ClassLoader.getSystemResourceAsStream("frmPaint.fxml")));
-
-            ventana.setScene(scene);
-            ventana.show();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+            FXMLLoader cargador = new FXMLLoader();
+            Scene scene =new Scene(
+                    cargador.load(ClassLoader.getSystemResourceAsStream("frmPaint.fxml"))
+            );
+            vtn.setScene(scene);
+            vtn.show();
+        }catch (IOException error){
+            System.out.println(error.getMessage());
         }
 
     }
-
-    /*
-
-    push con algo;
-    getClass().getResource("/java/resources/frmPaint.fxml")
-
-    FXMLLoader loader = new FXMLLoader();
-        try{
-            Scene escena = new Scene(loader.load(ClassLoader.getSystemResourceAsStream("frmRobot.fxml")));
-            ventana.setScene(escena);
-            ventana.show();
-        }catch (IOException e){
-            System.out.println(e.getMessage());
-        }
-     */
 }
