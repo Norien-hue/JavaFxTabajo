@@ -28,6 +28,8 @@ public class Programa extends Application {
     }
 
     /*
+
+    push con algo;
     getClass().getResource("/java/resources/frmPaint.fxml")
 
     FXMLLoader loader = new FXMLLoader();
