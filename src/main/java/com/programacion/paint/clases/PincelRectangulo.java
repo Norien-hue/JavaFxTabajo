@@ -5,7 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 public class PincelRectangulo implements Pincel{
     @Override
     public void dibujar(GraphicsContext g, Punto p) {
-        this.dibujar(g, new Punto(10 , 10));
+        g.fillRect(p.x(), p.y(), 20, 20);
     }
 
     PincelRectangulo() {

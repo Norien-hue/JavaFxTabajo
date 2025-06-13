@@ -17,7 +17,8 @@ public class PincelContinuo extends PincelBasico implements Reseteable{
     @Override
     public void dibujar(GraphicsContext g, Punto p) {
         if (this.puntoPrevio == null){
-            this.dibujar(g, p);
+            double radio = getRadio();
+            g.fillOval(p.x() - radio, p.y() - radio, radio * 2, radio * 2);
             this.puntoPrevio = p;
         }else{
             g.strokeLine(this.puntoPrevio.x(), this.puntoPrevio.y(), p.x(), p.y());
