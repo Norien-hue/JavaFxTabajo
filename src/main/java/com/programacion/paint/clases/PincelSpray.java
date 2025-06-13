@@ -19,6 +19,11 @@ public class PincelSpray extends PincelCirculoDinamico{
     }
 
     @Override
+    public String toString() {
+        return "Pincel Spray";
+    }
+
+    @Override
     public void dibujar(GraphicsContext g, Punto p) {
         IntStream.range(0, densidad)
                 .forEach(i -> {
