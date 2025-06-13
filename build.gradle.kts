@@ -11,7 +11,7 @@ repositories {
 }
 
 application{
-    mainClass = "com.programacion.paint.Progrma"
+    mainClass = "com.programacion.paint.Programa"
 }
 
 javafx{
