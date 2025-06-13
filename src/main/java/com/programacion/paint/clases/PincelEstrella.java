@@ -21,4 +21,3 @@ public class PincelEstrella implements Pincel{
         return "Pincel estrella";
     }
 }
-
